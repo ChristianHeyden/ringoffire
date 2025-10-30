@@ -13,8 +13,33 @@ export class Game {
         }
       
         shuffle(this.stack)
-
     }
+
+    public toJson(){
+        return {
+            players: this.players,
+            stack: this.stack,
+            playedCards: this.playedCards,
+            currentPlayer: this.currentPlayer
+        }
+    }
+
+    ///////////////////////////////////////
+
+    fromJson(obj: any): Game {
+        this.players = obj.players || [];
+        this.stack = obj.stack || [];
+        this.playedCards = obj.playedCards || [];
+        this.currentPlayer = obj.currentPlayer || 0;
+        // evtl. weitere Felder hier übernehmen …
+    
+        return this;
+      }
+
+
+
+    /////////////////////////////////////////
+
     
 }
 

@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, getLocaleDayNames } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,10 @@ import {FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from "../game-info/game-info.component";
+import { Firestore, collection, collectionData, onSnapshot, addDoc, doc, docData } from '@angular/fire/firestore';
+import { list } from '@angular/fire/database';
+import { elementAt } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -23,17 +27,76 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;  
   currentCard: string | undefined = '';
   game: Game = new Game();
+
+  private firestore: Firestore = inject(Firestore);
+
+  unsubList;
   
-  constructor(public dialog: MatDialog) {}
+  constructor(public route: ActivatedRoute, public dialog: MatDialog) {
+
+    this.unsubList = onSnapshot(collection(this.firestore, 'games'), (list) =>{
+      list.forEach(element =>{
+        //console.log(element.data());
+      })
+    });
+
+  }
+
+
+  // ngOnInit(): void {
+  //   this.newGame();
+  //   this.route.params.subscribe((params) => {
+  //     console.log(params['id']);
+    
+
+  //     this
+  //       .firestore
+  //       .collection('games')
+  //       .doc(params.id)
+  //       .valueChanges()
+  //       .subscribe((game: any) => {
+  //         console.log('Game update', game);
+  //         this.game.currentPlayer = game.currentPlayer;
+  //         this.game.playedCards = game.playedCards;
+  //         this.game.players = game.players;
+  //         this.game.stack = game.stack;
+  //       });
+
+  //   })
+  // }
+
+
+  /////////////////////
+
 
   ngOnInit(): void {
-    this.newGame();
+    this.route.params.subscribe((params) => {
+      const gameId = params['id'];
+      console.log('Game ID:', gameId);
+  
+      if (gameId) {
+        const gameDocRef = doc(this.firestore, 'games', gameId);
+        docData(gameDocRef).subscribe((gameData) => {
+          console.log('Firestore Game Data:', gameData);
+          this.game = new Game().fromJson(gameData);
+        });
+      } else {
+        this.newGame();
+      }
+    });
   }
 
-  newGame(){
+
+
+  /////////
+
+  async newGame(){
     this.game = new Game();
     
-  }
+    //await addDoc(collection(this.firestore, 'games'), this.game.toJson())
+    
+    
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
   takeCard(){
     if(!this.pickCardAnimation){
