@@ -10,8 +10,8 @@ import {FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from "../game-info/game-info.component";
-import { Firestore, collection, collectionData, onSnapshot, addDoc, doc, docData } from '@angular/fire/firestore';
-import { list } from '@angular/fire/database';
+import { Firestore, collection, collectionData, onSnapshot, addDoc, doc, docData, updateDoc } from '@angular/fire/firestore';
+import { list, update } from '@angular/fire/database';
 import { elementAt } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -27,6 +27,7 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;  
   currentCard: string | undefined = '';
   game: Game = new Game();
+  gameId!: string;
 
   private firestore: Firestore = inject(Firestore);
 
@@ -70,12 +71,13 @@ export class GameComponent implements OnInit {
 
 
   ngOnInit(): void {
+   // this.newGame();
     this.route.params.subscribe((params) => {
-      const gameId = params['id'];
-      console.log('Game ID:', gameId);
+      this.gameId = params['id'];
+      console.log('Game ID:', this.gameId);
   
-      if (gameId) {
-        const gameDocRef = doc(this.firestore, 'games', gameId);
+      if (this.gameId) {
+        const gameDocRef = doc(this.firestore, 'games', this.gameId);
         docData(gameDocRef).subscribe((gameData) => {
           console.log('Firestore Game Data:', gameData);
           this.game = new Game().fromJson(gameData);
@@ -106,6 +108,7 @@ export class GameComponent implements OnInit {
 
       console.log('New card: ' + this.currentCard);
       console.log(this.game);
+      this.saveGame();
 
 
       this.game.currentPlayer++;
@@ -113,6 +116,7 @@ export class GameComponent implements OnInit {
 
       setTimeout(() => {
       this.game.playedCards.push(this.currentCard!);
+      this.saveGame();
       this.pickCardAnimation = false;
       }, 1000)
 
@@ -126,10 +130,21 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if(name && name.length > 0){
         this.game.players.push(name);
+        this.saveGame();
       }      
       console.log('The dialog was closed', name);
     });
   }
+
+
+  saveGame() {
+   if (this.gameId) {
+    const gameRef = doc(this.firestore, 'games', this.gameId);
+    updateDoc(gameRef, this.game.toJson());
+    }
+  }
+
+
 }
 
 
