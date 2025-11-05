@@ -23,9 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
-export class GameComponent implements OnInit {
-  pickCardAnimation = false;  
-  currentCard: string | undefined = '';
+export class GameComponent implements OnInit {  
   game: Game = new Game();
   gameId!: string;
 
@@ -101,23 +99,24 @@ export class GameComponent implements OnInit {
   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
   takeCard(){
-    if(!this.pickCardAnimation){
-      this.currentCard = this.game.stack.pop();
-      this.pickCardAnimation = true;
+    if(!this.game.pickCardAnimation){
+      this.game.currentCard = this.game.stack.pop();
+      this.game.pickCardAnimation = true;
 
 
-      console.log('New card: ' + this.currentCard);
+      console.log('New card: ' + this.game.currentCard);
       console.log(this.game);
-      this.saveGame();
-
-
+      
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
 
-      setTimeout(() => {
-      this.game.playedCards.push(this.currentCard!);
       this.saveGame();
-      this.pickCardAnimation = false;
+
+      setTimeout(() => {
+      this.game.playedCards.push(this.game.currentCard!);
+      
+      this.game.pickCardAnimation = false;
+      this.saveGame();
       }, 1000)
 
     }
@@ -137,10 +136,10 @@ export class GameComponent implements OnInit {
   }
 
 
-  saveGame() {
+  async saveGame() {
    if (this.gameId) {
     const gameRef = doc(this.firestore, 'games', this.gameId);
-    updateDoc(gameRef, this.game.toJson());
+    await updateDoc(gameRef, this.game.toJson());
     }
   }
 
