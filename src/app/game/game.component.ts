@@ -14,12 +14,13 @@ import { Firestore, collection, collectionData, onSnapshot, addDoc, doc, docData
 import { list, update } from '@angular/fire/database';
 import { elementAt } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
 
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, PlayerComponent, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, FormsModule, GameInfoComponent],
+  imports: [CommonModule, PlayerComponent, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, FormsModule, GameInfoComponent, PlayerMobileComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })

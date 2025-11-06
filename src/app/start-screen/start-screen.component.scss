@@ -21,6 +21,11 @@
     >img{
         width: 40vw;
         height: auto;
+
+        @media (max-width: 960px) {
+            width: 400px;
+        }
+
         &:hover{
             filter: brightness(1.5);
             cursor: pointer;
