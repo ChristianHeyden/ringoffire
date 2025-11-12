@@ -19,8 +19,12 @@
 </div>
 
 
+<div *ngIf="gameOver" class="game-over">
+    <img src="./assets/img/game_over.png" alt="">
+</div>
 
-<div class="field">
+
+<div *ngIf="!gameOver" class="field">
     <div class="card-stack">
         <!-- Card stack -->
         <img *ngFor="let c of [0,1,2,3]; let i = index;" [ngStyle]="{'right.px': i*5}" src="/assets/img/cards/card_cover.png">
@@ -36,8 +40,8 @@
 
 </div>
 
-<button mat-fab aria-label="Example icon button with a add icon" (click)="openDialog()" color="primary" class="btn-add">
+<button *ngIf="!gameOver" mat-fab aria-label="Example icon button with a add icon" (click)="openDialog()" color="primary" class="btn-add">
     <mat-icon>add</mat-icon>
 </button>
 
-<app-game-info [card]="game.currentCard" class="pin-bottom"></app-game-info>
+<app-game-info *ngIf="!gameOver" [card]="game.currentCard" class="pin-bottom"></app-game-info>
