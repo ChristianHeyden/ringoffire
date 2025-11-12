@@ -1,0 +1,16 @@
+.edit-player-container{
+    display: flex;
+    margin: 8px;
+    gap: 4px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(1.15);
+    }
+}

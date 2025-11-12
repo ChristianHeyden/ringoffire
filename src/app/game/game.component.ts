@@ -15,6 +15,7 @@ import { list, update } from '@angular/fire/database';
 import { elementAt } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerMobileComponent } from "../player-mobile/player-mobile.component";
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -124,15 +125,28 @@ export class GameComponent implements OnInit {
 
   }
 
+  editPlayer(playerId: number) {
+    console.log('Edit Player:', playerId)
+
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+
+    dialogRef.afterClosed().subscribe((change: string) => {
+      console.log('Received change', change)  
+      this.game.player_images[playerId] = change;
+      this.saveGame();
+    });
+    
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if(name && name.length > 0){
         this.game.players.push(name);
+        this.game.player_images.push('player.png')
         this.saveGame();
       }      
-      console.log('The dialog was closed', name);
     });
   }
 
