@@ -11,19 +11,26 @@ import {MatCardModule} from '@angular/material/card';
 export class GameInfoComponent implements OnInit, OnChanges{
 
   cardAction = [
-    { title: 'Waterfall', description: 'Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.' },
-    { title: 'You', description: 'You decide who drinks' },
-    { title: 'Me', description: 'Congrats! Drink a shot!' },
-    { title: 'Category', description: 'Come up with a category (e.g. Colors). Each player must enumerate one item from the category.' },
-    { title: 'Bust a jive', description: 'Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one. ' },
-    { title: 'Chicks', description: 'All girls drink.' },
-    { title: 'Heaven', description: 'Put your hands up! The last player drinks!' },
-    { title: 'Mate', description: 'Pick a mate. Your mate must always drink when you drink and the other way around.' },
-    { title: 'Thumbmaster', description: '' },
-    { title: 'Men', description: 'All men drink.' },
-    { title: 'Quizmaster', description: '' },
-    { title: 'Never have i ever...', description: 'Say something you nnever did. Everyone who did it has to drink.' },
-    { title: 'Rule', description: 'Make a rule. Everyone needs to drink when he breaks the rule.' },
+    { title: 'Waterfall', description: 'Alle fangen gleichzeitig an zu trinken. Sobald Spieler 1 aufhört, darf Spieler 2 aufhören, und so weiter.' },
+    { title: 'You', description: 'Du entscheidest, wer trinken muss.' },
+    { title: 'Me', description: 'Herzlichen Glückwunsch! Du trinkst einen Shot!' },
+    { title: 'Category', description: 'Nenne eine Kategorie (z. B. Farben). Jeder Spieler muss reihum etwas aus der Kategorie nennen.' },
+    { title: 'Bust a Jive', description: 'Spieler 1 macht einen Tanzmove. Spieler 2 wiederholt den Move und fügt einen hinzu.' },
+    { title: 'Chicks', description: 'Alle Frauen trinken.' },
+    { title: 'Heaven', description: 'Alle heben die Hände. Der letzte trinkt!' },
+    { title: 'Mate', description: 'Wähle einen Trinkpartner. Immer wenn du trinkst, muss dein Partner auch trinken – und umgekehrt.' },
+    { title: 'Thumbmaster', description: 'Lege deinen Daumen auf den Tisch. Der Letzte, der es bemerkt, trinkt.' },
+    { title: 'Men', description: 'Alle Männer trinken.' },
+    { title: 'Quizmaster', description: 'Du bist jetzt Quizmaster. Wer auf deine Fragen antwortet, ohne „Quizmaster“ zu sagen, trinkt.' },
+    { title: 'Never Have I Ever', description: 'Sage etwas, das du noch nie getan hast. Jeder, der es getan hat, trinkt.' },
+    { title: 'Rule', description: 'Erschaffe eine Regel. Wer sie bricht, trinkt.' },
+    { title: 'Question Master', description: 'Stelle Fragen – wer darauf antwortet, trinkt.' },
+    { title: 'King’s Cup', description: 'Gieße etwas von deinem Getränk in den Becher in der Mitte. Wer den nächsten König zieht, trinkt alles.' },
+    { title: 'Snake Eyes', description: 'Schau jemandem in die Augen, während du trinkst. Wer zuerst wegsieht, trinkt noch einmal.' },
+    { title: 'Story Time', description: 'Beginne eine Geschichte mit einem Satz. Jeder fügt einen Satz hinzu. Wer die Geschichte versaut, trinkt.' },
+    { title: 'Little Green Man', description: 'Tu so, als hättest du einen kleinen grünen Mann auf deinem Glas. Nimm ihn jedes Mal herunter, wenn du trinkst – vergisst du ihn, trink doppelt.' },
+    { title: 'Silent Game', description: 'Bis zum nächsten Zug darf niemand sprechen. Wer redet, trinkt.' },
+    { title: 'Compliment Chain', description: 'Mache jemandem ein Kompliment. Die Person macht jemand anderem eins. Wer keines einfällt, trinkt.' }
   ];
 
 
