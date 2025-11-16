@@ -38,41 +38,12 @@ export class GameComponent implements OnInit {
 
     this.unsubList = onSnapshot(collection(this.firestore, 'games'), (list) =>{
       list.forEach(element =>{
-        //console.log(element.data());
       })
     });
-
   }
 
 
-  // ngOnInit(): void {
-  //   this.newGame();
-  //   this.route.params.subscribe((params) => {
-  //     console.log(params['id']);
-    
-
-  //     this
-  //       .firestore
-  //       .collection('games')
-  //       .doc(params.id)
-  //       .valueChanges()
-  //       .subscribe((game: any) => {
-  //         console.log('Game update', game);
-  //         this.game.currentPlayer = game.currentPlayer;
-  //         this.game.playedCards = game.playedCards;
-  //         this.game.players = game.players;
-  //         this.game.stack = game.stack;
-  //       });
-
-  //   })
-  // }
-
-
-  /////////////////////
-
-
   ngOnInit(): void {
-   // this.newGame();
     this.route.params.subscribe((params) => {
       this.gameId = params['id'];
       console.log('Game ID:', this.gameId);
@@ -90,15 +61,8 @@ export class GameComponent implements OnInit {
   }
 
 
-
-  /////////
-
   async newGame(){
     this.game = new Game();
-    
-    //await addDoc(collection(this.firestore, 'games'), this.game.toJson())
-    
-    
   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
   takeCard(){
@@ -107,7 +71,6 @@ export class GameComponent implements OnInit {
     } else if(!this.game.pickCardAnimation){
       this.game.currentCard = this.game.stack.pop();
       this.game.pickCardAnimation = true;
-
 
       console.log('New card: ' + this.game.currentCard);
       console.log(this.game);

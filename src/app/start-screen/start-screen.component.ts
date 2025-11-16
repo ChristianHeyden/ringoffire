@@ -32,15 +32,4 @@ export class StartScreenComponent {
     }
   }
 
-
-
-  // newGame(){
-  //   let game = new Game();
-
-  //   addDoc(collection(this.firestore, 'games'), game.toJson().then((gameInfo: any) =>{console.log(gameInfo)})  
-  //   );
-
-  //  // this.router.navigateByUrl('/game')
-  // }
-
 }
